@@ -1,7 +1,7 @@
 """
 Description: Data Quality checks for patient_sum_treatment_cost_per_facility_type dataset.
 Requirement(s): TICKET-1234
-Author(s): DQE Automation
+Author(s): Alua Orynbassarova
 """
 
 import pytest

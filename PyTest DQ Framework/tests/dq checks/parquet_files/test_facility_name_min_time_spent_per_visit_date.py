@@ -1,7 +1,7 @@
 """
 Description: Data Quality checks for facility_name_min_time_spent_per_visit_date dataset.
 Requirement(s): TICKET-1234
-Author(s): DQE Automation
+Author(s): Alua Orynbassarova
 """
 
 import pytest
