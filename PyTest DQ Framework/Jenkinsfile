@@ -44,13 +44,19 @@ pipeline {
                 dir('PyTest DQ Framework') {
                     archiveArtifacts artifacts: 'html_report/**', allowEmptyArchive: true
 
-                    publishHTML(target: [
-                        allowMissing: false,
-                        keepAll: true,
-                        reportDir: 'html_report',
-                        reportFiles: 'index.html',
-                        reportName: 'HTML Test Report'
-                    ])
+                    script {
+                        try {
+                            publishHTML(target: [
+                                allowMissing: false,
+                                keepAll: true,
+                                reportDir: 'html_report',
+                                reportFiles: 'index.html',
+                                reportName: 'HTML Test Report'
+                            ])
+                        } catch (NoSuchMethodError e) {
+                            echo "HTML Publisher plugin not installed — skipping publishHTML, report is still archived above."
+                        }
+                    }
                 }
             }
         }
