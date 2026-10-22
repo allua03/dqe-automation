@@ -1,0 +1,189 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-8.4.2, pluggy-1.7.0 -- /tmp/pytest-dq-framework/venv/bin/python3
+cachedir: .pytest_cache
+metadata: {'Python': '3.13.5', 'Platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41', 'Packages': {'pytest': '8.4.2', 'pluggy': '1.7.0'}, 'Plugins': {'html': '4.1.1', 'metadata': '3.1.1'}, 'JAVA_HOME': '/opt/java/openjdk'}
+rootdir: /tmp/pytest-dq-framework/tests
+configfile: pytest.ini
+plugins: html-4.1.1, metadata-3.1.1
+collecting ... collected 17 items / 2 deselected / 15 selected
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_dataset_is_not_empty PASSED [  6%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_data_completeness FAILED [ 13%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_count FAILED [ 20%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_uniqueness FAILED [ 26%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_not_null_values PASSED [ 33%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_dataset_is_not_empty PASSED [ 40%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_data_completeness FAILED [ 46%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_count FAILED [ 53%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_uniqueness PASSED [ 60%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_not_null_values PASSED [ 66%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_dataset_is_not_empty PASSED [ 73%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_data_completeness FAILED [ 80%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_count FAILED [ 86%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_uniqueness PASSED [ 93%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_not_null_values FAILED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_check_data_completeness _________________________
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:40: in test_check_data_completeness
+    data_quality_library.check_data_completeness(source_data, target_data)
+src/data_quality/data_quality_validation_library.py:47: in check_data_completeness
+    assert diff.empty, (
+           ^^^^^^^^^^
+E   AssertionError: Data completeness mismatch between expected and actual datasets: 62018 mismatched row(s) (from either side). First 20:
+E      facility_name  visit_date  min_time_spent
+E   0   Green-Kelley  2000-01-01              15
+E   1   Green-Kelley  2000-01-02              22
+E   2   Green-Kelley  2000-01-03              22
+E   3   Green-Kelley  2000-01-04              20
+E   4   Green-Kelley  2000-01-05              29
+E   5   Green-Kelley  2000-01-06              18
+E   6   Green-Kelley  2000-01-07              20
+E   7   Green-Kelley  2000-01-08              21
+E   8   Green-Kelley  2000-01-09              29
+E   9   Green-Kelley  2000-01-10              19
+E   10  Green-Kelley  2000-01-12              19
+E   11  Green-Kelley  2000-01-13              18
+E   12  Green-Kelley  2000-01-14              34
+E   13  Green-Kelley  2000-01-15              16
+E   14  Green-Kelley  2000-01-17              18
+E   15  Green-Kelley  2000-01-18              26
+E   16  Green-Kelley  2000-01-19              20
+E   17  Green-Kelley  2000-01-21              37
+E   18  Green-Kelley  2000-01-22              21
+E   19  Green-Kelley  2000-01-23              32
+E   ... and 61998 more row(s)
+_______________________________ test_check_count _______________________________
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:46: in test_check_count
+    data_quality_library.check_count(source_data, target_data)
+src/data_quality/data_quality_validation_library.py:21: in check_count
+    assert expected_count == actual_count, (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Row count mismatch: expected 35435 rows, got 44287 rows.
+____________________________ test_check_uniqueness _____________________________
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:52: in test_check_uniqueness
+    data_quality_library.check_duplicates(target_data)
+src/data_quality/data_quality_validation_library.py:59: in check_duplicates
+    assert duplicates.empty, (
+           ^^^^^^^^^^^^^^^^
+E   AssertionError: Found 17704 duplicate row(s) (subset=all columns). First 20:
+E                        facility_name visit_date  min_time_spent partition_date
+E   9   Washington, Dixon and Mcdonald 2000-01-25              52        2000-01
+E   11  Washington, Dixon and Mcdonald 2000-01-14              42        2000-01
+E   13  Washington, Dixon and Mcdonald 2000-01-23              30        2000-01
+E   16  Washington, Dixon and Mcdonald 2000-01-17              22        2000-01
+E   17  Washington, Dixon and Mcdonald 2000-01-10              24        2000-01
+E   19  Washington, Dixon and Mcdonald 2000-01-08              30        2000-01
+E   25  Washington, Dixon and Mcdonald 2000-01-28              31        2000-01
+E   27  Washington, Dixon and Mcdonald 2000-01-06              19        2000-01
+E   32  Washington, Dixon and Mcdonald 2000-01-09              23        2000-01
+E   37  Washington, Dixon and Mcdonald 2000-01-02              54        2000-01
+E   40  Washington, Dixon and Mcdonald 2000-01-05              27        2000-01
+E   45  Washington, Dixon and Mcdonald 2000-01-07              15        2000-01
+E   46  Washington, Dixon and Mcdonald 2000-01-21              21        2000-01
+E   51  Washington, Dixon and Mcdonald 2000-01-03              35        2000-01
+E   52  Washington, Dixon and Mcdonald 2000-01-18              17        2000-01
+E   61  Washington, Dixon and Mcdonald 2000-01-16              60        2000-01
+E   62  Washington, Dixon and Mcdonald 2000-01-22              50        2000-01
+E   63  Washington, Dixon and Mcdonald 2000-01-13              16        2000-01
+E   64  Washington, Dixon and Mcdonald 2000-01-27              19        2000-01
+E   65  Washington, Dixon and Mcdonald 2000-01-26              19        2000-01
+E   ... and 17684 more row(s)
+_________________________ test_check_data_completeness _________________________
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py:40: in test_check_data_completeness
+    data_quality_library.check_data_completeness(source_data, target_data)
+src/data_quality/data_quality_validation_library.py:47: in check_data_completeness
+    assert diff.empty, (
+           ^^^^^^^^^^
+E   AssertionError: Data completeness mismatch between expected and actual datasets: 61182 mismatched row(s) (from either side). First 20:
+E      facility_type  visit_date  avg_time_spent
+E   0         Clinic  2000-01-01           52.00
+E   1         Clinic  2000-01-02           54.00
+E   2         Clinic  2000-01-03           40.50
+E   3         Clinic  2000-01-05           36.50
+E   4         Clinic  2000-01-06           33.67
+E   5         Clinic  2000-01-07           43.50
+E   6         Clinic  2000-01-08           43.50
+E   7         Clinic  2000-01-09           25.50
+E   8         Clinic  2000-01-10           24.00
+E   9         Clinic  2000-01-11           27.00
+E   10        Clinic  2000-01-12           34.50
+E   11        Clinic  2000-01-13           29.00
+E   12        Clinic  2000-01-14           46.50
+E   13        Clinic  2000-01-16           60.00
+E   14        Clinic  2000-01-17           38.80
+E   15        Clinic  2000-01-18           29.25
+E   16        Clinic  2000-01-19           32.00
+E   17        Clinic  2000-01-20           21.00
+E   18        Clinic  2000-01-21           34.25
+E   19        Clinic  2000-01-22           50.00
+E   ... and 61162 more row(s)
+_______________________________ test_check_count _______________________________
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py:46: in test_check_count
+    data_quality_library.check_count(source_data, target_data)
+src/data_quality/data_quality_validation_library.py:21: in check_count
+    assert expected_count == actual_count, (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Row count mismatch: expected 35435 rows, got 25747 rows.
+_________________________ test_check_data_completeness _________________________
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py:41: in test_check_data_completeness
+    data_quality_library.check_data_completeness(source_data, target_data)
+src/data_quality/data_quality_validation_library.py:47: in check_data_completeness
+    assert diff.empty, (
+           ^^^^^^^^^^
+E   AssertionError: Data completeness mismatch between expected and actual datasets: 94 mismatched row(s) (from either side). First 20:
+E      facility_type          full_name  sum_treatment_cost
+E   0         Clinic  Alexander Vazquez          1748014.95
+E   1         Clinic    Alison Martinez          1891496.78
+E   2         Clinic        Amber Silva          1754907.17
+E   3         Clinic        Angela Ware          1797555.44
+E   4         Clinic      Anna Espinoza          1667281.40
+E   5         Clinic     Brandon Medina          1812161.51
+E   6         Clinic    Brittany Keller          1778063.33
+E   7         Clinic      Crystal Myers          1733079.13
+E   8         Clinic   Dakota Blackwell          1786237.00
+E   9         Clinic   Dominique Norman          1717056.13
+E   10        Clinic   Douglas Martinez          1649922.58
+E   11        Clinic    Eric Pennington          1756481.42
+E   12        Clinic      James Fischer          1684227.07
+E   13        Clinic       James Harris          1736690.42
+E   14        Clinic       Janet Butler          1760029.73
+E   15        Clinic   Jasmine Williams          1761136.25
+E   16        Clinic      Jeremy Bryant          1666887.26
+E   17        Clinic        Jorge Poole          1863556.17
+E   18        Clinic        Karen Clark          1704386.69
+E   19        Clinic        Keith Singh          1648004.19
+E   ... and 74 more row(s)
+_______________________________ test_check_count _______________________________
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py:47: in test_check_count
+    data_quality_library.check_count(source_data, target_data)
+src/data_quality/data_quality_validation_library.py:21: in check_count
+    assert expected_count == actual_count, (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Row count mismatch: expected 120 rows, got 64 rows.
+__________________________ test_check_not_null_values __________________________
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py:59: in test_check_not_null_values
+    data_quality_library.check_not_null_values(target_data, ['facility_type', 'full_name', 'sum_treatment_cost'])
+src/data_quality/data_quality_validation_library.py:71: in check_not_null_values
+    assert null_rows.empty, (
+           ^^^^^^^^^^^^^^^
+E   AssertionError: Column 'full_name' contains 4 null value(s) at index: [15, 31, 47, 63]
+=============================== warnings summary ===============================
+dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_data_completeness
+dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_data_completeness
+dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_data_completeness
+  /tmp/pytest-dq-framework/src/connectors/postgres/postgres_connector.py:49: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+    return pd.read_sql_query(sql, self.connection)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- Generated html report: file:///tmp/pytest-dq-framework/html_report/index.html -
+=========================== short test summary info ============================
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_data_completeness
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_count
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_uniqueness
+FAILED tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_data_completeness
+FAILED tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_count
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_data_completeness
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_count
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_not_null_values
+============ 8 failed, 7 passed, 2 deselected, 3 warnings in 2.58s =============
