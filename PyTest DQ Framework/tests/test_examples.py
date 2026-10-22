@@ -1,21 +1,33 @@
-"""Small, database-free examples of the reusable DQ assertion API."""
+"""
+Description: Data Quality checks ...
+Requirement(s): TICKET-1234
+Author(s): Name Surname
+"""
 
-import pandas as pd
 import pytest
 
 
+@pytest.fixture(scope='module')
+def target_data(db_connection):
+    target_query = """
+    SELECT ...
+    """
+    target_data = db_connection.get_data_sql(target_query)
+    return target_data
+
+
+@pytest.fixture(scope='module')
+def source_data(parquet_reader):
+    target_path = '/root/path/to/file'
+    target_data = parquet_reader.process(target_path)
+    return target_data
+
+
 @pytest.mark.example
-def test_example_count_and_completeness(data_quality_library):
-    expected = pd.DataFrame({"id": [1, 2], "label": ["a", "b"]})
-    actual = pd.DataFrame({"label": ["b", "a"], "id": [2, 1]})
-
-    data_quality_library.check_count(expected, actual)
-    data_quality_library.check_data_completeness(expected, actual)
+def test_check_dataset_is_not_empty(target_data, data_quality_library):
+    data_quality_library.check_dataset_is_not_empty(target_data)
 
 
 @pytest.mark.example
-def test_example_not_null_and_unique(data_quality_library):
-    frame = pd.DataFrame({"id": [1, 2], "label": ["a", "b"]})
-
-    data_quality_library.check_duplicates(frame, ["id"])
-    data_quality_library.check_not_null_values(frame, ["id", "label"])
+def test_check_count(source_data, target_data, data_quality_library):
+    data_quality_library.check_count(source_data, target_data)
