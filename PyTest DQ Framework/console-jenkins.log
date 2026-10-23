@@ -1,0 +1,211 @@
+Started by user Alua
+
+Obtained PyTest DQ Framework/Jenkinsfile from git https://github.com/allua03/dqe-automation.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in /var/jenkins_home/workspace/pytest-dq-framework
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential jenkins-postgres-credentials
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/pytest-dq-framework/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/allua03/dqe-automation.git # timeout=10
+Fetching upstream changes from https://github.com/allua03/dqe-automation.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials Postgres DB credentials for DQ tests
+ > git fetch --tags --force --progress -- https://github.com/allua03/dqe-automation.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/pytestdqframework^{commit} # timeout=10
+Checking out Revision 045d6a525d502f9e78e591f58c6e586141320f44 (refs/remotes/origin/pytestdqframework)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 045d6a525d502f9e78e591f58c6e586141320f44 # timeout=10
+Commit message: "Make Jenkinsfile resilient to missing HTML Publisher plugin"
+ > git rev-list --no-walk f7a97e1e72ffc0efe938bb949f293b62f93ded3a # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $POSTGRES_SECRET or $POSTGRES_SECRET_PSW
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Install Dependencies)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework
+[Pipeline] {
+[Pipeline] sh
++ python3 -m venv venv
++ . venv/bin/activate
++ deactivate nondestructive
++ [ -n  ]
++ [ -n  ]
++ hash -r
++ [ -n  ]
++ unset VIRTUAL_ENV
++ unset VIRTUAL_ENV_PROMPT
++ [ ! nondestructive = nondestructive ]
++ uname
++ export VIRTUAL_ENV=/var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework/venv
++ _OLD_VIRTUAL_PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ PATH=/var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework/venv/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ export PATH
++ VIRTUAL_ENV_PROMPT=venv
++ export VIRTUAL_ENV_PROMPT
++ [ -n  ]
++ [ -z  ]
++ _OLD_VIRTUAL_PS1=#
++ PS1=(venv) #
++ export PS1
++ hash -r
++ pip install --upgrade pip
+Requirement already satisfied: pip in ./venv/lib/python3.13/site-packages (26.2.2)
++ pip install -r requirements.txt
+Requirement already satisfied: psycopg2-binary~=2.9.10 in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 1)) (2.9.13)
+Requirement already satisfied: pandas~=2.2.3 in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 2)) (2.2.3)
+Requirement already satisfied: pyarrow>=17.0.0 in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 3)) (26.0.0)
+Requirement already satisfied: pytest~=8.4.0 in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 4)) (8.4.2)
+Requirement already satisfied: pytest-html~=4.1.1 in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 5)) (4.1.1)
+Requirement already satisfied: numpy>=1.26.0 in ./venv/lib/python3.13/site-packages (from pandas~=2.2.3->-r requirements.txt (line 2)) (2.5.4)
+Requirement already satisfied: python-dateutil>=2.8.2 in ./venv/lib/python3.13/site-packages (from pandas~=2.2.3->-r requirements.txt (line 2)) (3.0.0)
+Requirement already satisfied: pytz>=2020.1 in ./venv/lib/python3.13/site-packages (from pandas~=2.2.3->-r requirements.txt (line 2)) (2026.5)
+Requirement already satisfied: tzdata>=2022.7 in ./venv/lib/python3.13/site-packages (from pandas~=2.2.3->-r requirements.txt (line 2)) (2026.5)
+Requirement already satisfied: iniconfig>=1 in ./venv/lib/python3.13/site-packages (from pytest~=8.4.0->-r requirements.txt (line 4)) (2.3.1)
+Requirement already satisfied: packaging>=20 in ./venv/lib/python3.13/site-packages (from pytest~=8.4.0->-r requirements.txt (line 4)) (26.3)
+Requirement already satisfied: pluggy<2,>=1.5 in ./venv/lib/python3.13/site-packages (from pytest~=8.4.0->-r requirements.txt (line 4)) (1.7.0)
+Requirement already satisfied: pygments>=2.7.2 in ./venv/lib/python3.13/site-packages (from pytest~=8.4.0->-r requirements.txt (line 4)) (2.21.0)
+Requirement already satisfied: jinja2>=3.0.0 in ./venv/lib/python3.13/site-packages (from pytest-html~=4.1.1->-r requirements.txt (line 5)) (3.1.6)
+Requirement already satisfied: pytest-metadata>=2.0.0 in ./venv/lib/python3.13/site-packages (from pytest-html~=4.1.1->-r requirements.txt (line 5)) (3.1.1)
+Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.13/site-packages (from jinja2>=3.0.0->pytest-html~=4.1.1->-r requirements.txt (line 5)) (3.0.4)
+Requirement already satisfied: six>=1.6 in ./venv/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas~=2.2.3->-r requirements.txt (line 2)) (1.17.0)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run DQ Tests)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] sh
++ . venv/bin/activate
++ deactivate nondestructive
++ [ -n  ]
++ [ -n  ]
++ hash -r
++ [ -n  ]
++ unset VIRTUAL_ENV
++ unset VIRTUAL_ENV_PROMPT
++ [ ! nondestructive = nondestructive ]
++ uname
++ export VIRTUAL_ENV=/var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework/venv
++ _OLD_VIRTUAL_PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ PATH=/var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework/venv/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ export PATH
++ VIRTUAL_ENV_PROMPT=venv
++ export VIRTUAL_ENV_PROMPT
++ [ -n  ]
++ [ -z  ]
++ _OLD_VIRTUAL_PS1=#
++ PS1=(venv) #
++ export PS1
++ hash -r
++ pytest tests -m parquet_data --db_host=postgres --db_port=5432 --db_name=mydatabase --db_user=myuser --db_password=**** --html=html_report/index.html --self-contained-html
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-8.4.2, pluggy-1.7.0
+rootdir: /var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework/tests
+configfile: pytest.ini
+plugins: html-4.1.1, metadata-3.1.1
+collected 17 items / 2 deselected / 15 selected
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py . [  6%]
+FFF.                                                                     [ 33%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py . [ 40%]
+FF..                                                                     [ 66%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py . [ 73%]
+FF.F                                                                     [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_check_data_completeness _________________________
+AssertionError: Data completeness mismatch between expected and actual datasets: 62018 mismatched row(s) (from either side).
+src/data_quality/data_quality_validation_library.py:47: AssertionError
+_______________________________ test_check_count _______________________________
+AssertionError: Row count mismatch: expected 35435 rows, got 44287 rows.
+src/data_quality/data_quality_validation_library.py:21: AssertionError
+____________________________ test_check_uniqueness _____________________________
+AssertionError: Found 17704 duplicate row(s) (subset=all columns).
+src/data_quality/data_quality_validation_library.py:59: AssertionError
+_________________________ test_check_data_completeness _________________________
+AssertionError: Data completeness mismatch between expected and actual datasets: 61182 mismatched row(s) (from either side).
+src/data_quality/data_quality_validation_library.py:47: AssertionError
+_______________________________ test_check_count _______________________________
+AssertionError: Row count mismatch: expected 35435 rows, got 25747 rows.
+src/data_quality/data_quality_validation_library.py:21: AssertionError
+_________________________ test_check_data_completeness _________________________
+AssertionError: Data completeness mismatch between expected and actual datasets: 94 mismatched row(s) (from either side).
+src/data_quality/data_quality_validation_library.py:47: AssertionError
+_______________________________ test_check_count _______________________________
+AssertionError: Row count mismatch: expected 120 rows, got 64 rows.
+src/data_quality/data_quality_validation_library.py:21: AssertionError
+__________________________ test_check_not_null_values __________________________
+AssertionError: Column 'full_name' contains 4 null value(s) at index: [15, 31, 47, 63]
+src/data_quality/data_quality_validation_library.py:71: AssertionError
+
+=============================== warnings summary ===============================
+dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_data_completeness
+dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_data_completeness
+dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_data_completeness
+  /var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework/src/connectors/postgres/postgres_connector.py:49: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+    return pd.read_sql_query(sql, self.connection)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- Generated html report: file:///var/jenkins_home/workspace/pytest-dq-framework/PyTest%20DQ%20Framework/html_report/index.html -
+=========================== short test summary info ============================
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_data_completeness - AssertionError: Data completeness mismatch between expected and actual datasets: 62018 mismatched row(s) (from either side).
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_count - AssertionError: Row count mismatch: expected 35435 rows, got 44287 rows.
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_check_uniqueness - AssertionError: Found 17704 duplicate row(s) (subset=all columns).
+FAILED tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_data_completeness - AssertionError: Data completeness mismatch between expected and actual datasets: 61182 mismatched row(s) (from either side).
+FAILED tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_check_count - AssertionError: Row count mismatch: expected 35435 rows, got 25747 rows.
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_data_completeness - AssertionError: Data completeness mismatch between expected and actual datasets: 94 mismatched row(s) (from either side).
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_count - AssertionError: Row count mismatch: expected 120 rows, got 64 rows.
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_check_not_null_values - AssertionError: Column 'full_name' contains 4 null value(s) at index: [15, 31, 47, 63]
+============ 8 failed, 7 passed, 2 deselected, 3 warnings in 2.61s =============
+[Pipeline] }
+ERROR: script returned exit code 1
+Setting overall build result to UNSTABLE
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Archive Test Report)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/pytest-dq-framework/PyTest DQ Framework
+[Pipeline] {
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+HTML Publisher plugin not installed — skipping publishHTML, report is still archived above.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: UNSTABLE
